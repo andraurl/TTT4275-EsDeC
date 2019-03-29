@@ -30,7 +30,7 @@ W   = zeros(C, D); % 3x4 matrise
 w_0 = zeros(C, 1); %3x1 vektor
 
 W = [W, w_0];
-x_vec = [x_all_train', ones(90,1)]';
+x_vec = [x_all_train', ones(C*N_train,1)]';
 
 z = W * x_vec;
 g = 1./(1+exp(-z)); % Squashing function
@@ -46,7 +46,8 @@ MSE;
 
 
 alpha = 0.005;
-for iteration = 1:5000
+NumIterations = 10000;
+for iteration = 1:NumIterations
     
     z = W * x_vec;
     g = 1./(1+exp(-z)); % Squashing function
@@ -72,13 +73,15 @@ for iteration = 1:5000
 end
 
 
+
+fprintf('Training with %i iterations, alpha = %f\n', NumIterations, alpha);
 fprintf('After the classifier training, %i of the %i flowers in the training set are classified correctly.\n', ...
     C*N_train-sum(sum(((g==(max(g))) - t) ==1)),...
     C*N_train ...
 );
 
 % Tester på testsettet:
-x_vec = [x_all_test', ones(60,1)]';
+x_vec = [x_all_test', ones((C*(50-N_train)),1)]';
 z = W * x_vec;
 g = 1./(1+exp(-z)); % Squashing function
 
@@ -86,4 +89,3 @@ fprintf('After the classifier training, %i of the %i flowers in the test set are
     C*(50-N_train)-sum(sum(((g==(max(g))) - t_all_test) ==1)),...
     C*(50-N_train) ...
 );
-
