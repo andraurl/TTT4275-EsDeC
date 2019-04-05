@@ -1,7 +1,7 @@
 load('data_all.mat');
 
 M = 64;
-[idxi, Ci] = kmeans(trainv,M)
+[idxi, Ci] = kmeans(trainv,M);
 
 references = Ci;
 for i = 1:M
