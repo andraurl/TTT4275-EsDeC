@@ -1,3 +1,4 @@
+
 x1all = load('class_1','-ascii'); % setosa
 x2all = load('class_2','-ascii'); % versicolor
 x3all = load('class_3','-ascii'); % virginica
@@ -6,13 +7,13 @@ N_train = 30;
 C = 3; % Number of classes
 D = 4; % Number of features
 
-x1train = x1all(1:N_train, :);
-x2train = x2all(1:N_train, :);
-x3train = x3all(1:N_train, :);
+x1train = x1all(50-N_train+1:50, :);
+x2train = x2all(50-N_train+1:50, :);
+x3train = x3all(50-N_train+1:50, :);
 
-x1test = x1all(N_train+1:50, :);
-x2test = x2all(N_train+1:50, :);
-x3test = x3all(N_train+1:50, :);
+x1test = x1all(1:50-N_train, :);
+x2test = x2all(1:50-N_train, :);
+x3test = x3all(1:50-N_train, :);
 
 x_all_train = [x1train; x2train; x3train]';
 t_all_train = [repmat([1 0 0],N_train,1); repmat([0 1 0],N_train,1); repmat([0 0 1],N_train,1)]';
