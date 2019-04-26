@@ -1,18 +1,22 @@
 %% Confution matrix and error rate
 
-% load('workspace_task_1a.mat');
-% load('workspace_task_2c.mat');
-
 N = 3; % number of classes
+
+% innput
+% 
+% solution = testset_class;
+% estimated = testset_class_estimated;
+solution = trainset_class;
+estimated = trainset_class_estimated;
 
 confution_matrix_count = zeros(N,N);
 
-for t = 1:length(test_set_num)
+test_length = length(solution);
+for t = 1:test_length
     % filling confution matrix
-    x = testset_num(t) + 1;
-    y = testset_num_estimated(t) + 1;
+    x = solution(t);
+    y = estimated(t);
     confution_matrix_count(x, y) = confution_matrix_count(x, y) + 1;
-    
 end
 
 % calculating acuracy in prosent
@@ -21,10 +25,7 @@ for y = 1:N
     total = sum(confution_matrix_count(y,:));
     confution_matrix_prosent(y,:) = confution_matrix_count(y,:)./(total)*100;
 end
-
-% ruonding results
 confution_matrix_rounded = round(confution_matrix_prosent)
-
 
 %% Error rate
 D = diag(confution_matrix_rounded);

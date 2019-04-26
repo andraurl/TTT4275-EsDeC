@@ -2,6 +2,10 @@ x1all = load('class_1','-ascii'); % setosa
 x2all = load('class_2','-ascii'); % versicolor
 x3all = load('class_3','-ascii'); % virginica
 
+% x1all = flipud(x1all);
+% x2all = flipud(x2all);
+% x3all = flipud(x3all);
+
 N_train = 30;
 C = 3; % Number of classes
 D = 4; % Number of features
@@ -71,21 +75,3 @@ for iteration = 1:NumIterations
     %{
     %}
 end
-
-
-
-fprintf('Training with %i iterations, alpha = %f\n', NumIterations, alpha);
-fprintf('After the classifier training, %i of the %i flowers in the training set are classified correctly.\n', ...
-    C*N_train-sum(sum(((g==(max(g))) - t) ==1)),...
-    C*N_train ...
-);
-
-% Tester på testsettet:
-x_vec = [x_all_test', ones((C*(50-N_train)),1)]';
-z = W * x_vec;
-g = 1./(1+exp(-z)); % Squashing function
-
-fprintf('After the classifier training, %i of the %i flowers in the test set are classified correctly.\n\n', ...
-    C*(50-N_train)-sum(sum(((g==(max(g))) - t_all_test) ==1)),...
-    C*(50-N_train) ...
-);
