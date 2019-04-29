@@ -1,6 +1,6 @@
 %% Confution matrix and error rate
 
-% load('workspace_task_1a.mat');
+load('workspace_task_1a.mat');
 % load('workspace_task_2c.mat');
 
 N = 10; % number of classes
