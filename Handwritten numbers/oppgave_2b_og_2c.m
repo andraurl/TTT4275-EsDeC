@@ -1,6 +1,8 @@
 load('data_all.mat');
 load('clusters.mat');
 
+M = 64;
+
 references = Ci;
 for i = 1:M
     references_num(i) = mode(trainlab(idxi==i));

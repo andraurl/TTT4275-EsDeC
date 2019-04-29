@@ -2,9 +2,11 @@ x1all = load('class_1','-ascii'); % setosa
 x2all = load('class_2','-ascii'); % versicolor
 x3all = load('class_3','-ascii'); % virginica
 
+%% Selecting last 30 samples as trainingset
 x1all = flipud(x1all);
 x2all = flipud(x2all);
 x3all = flipud(x3all);
+%%%%%%%%%%%%%%%%%%%%%%
 
 N_train = 30;
 C = 3; % Number of classes

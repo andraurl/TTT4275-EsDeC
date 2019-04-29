@@ -1,13 +1,13 @@
 %% Confution matrix and error rate
 
-% load('workspace_task_1a.mat');
+load('workspace_task_1a.mat');
 % load('workspace_task_2c.mat');
 
-N = 3; % number of classes
+N = 10; % number of classes
 
 confution_matrix_count = zeros(N,N);
 
-for t = 1:length(test_set_num)
+for t = 1:length(testset_num)
     % filling confution matrix
     x = testset_num(t) + 1;
     y = testset_num_estimated(t) + 1;
