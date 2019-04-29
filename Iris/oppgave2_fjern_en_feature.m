@@ -1,19 +1,24 @@
-
 x1all = load('class_1','-ascii'); % setosa
 x2all = load('class_2','-ascii'); % versicolor
 x3all = load('class_3','-ascii'); % virginica
 
+x1all = x1all(:,[1 3 4]);
+x2all = x2all(:,[1 3 4]);
+x3all = x3all(:,[1 3 4]);
+
+
+
 N_train = 30;
 C = 3; % Number of classes
-D = 4; % Number of features
+D = 3; % Number of features
 
-x1train = x1all(50-N_train+1:50, :);
-x2train = x2all(50-N_train+1:50, :);
-x3train = x3all(50-N_train+1:50, :);
+x1train = x1all(1:N_train, :);
+x2train = x2all(1:N_train, :);
+x3train = x3all(1:N_train, :);
 
-x1test = x1all(1:50-N_train, :);
-x2test = x2all(1:50-N_train, :);
-x3test = x3all(1:50-N_train, :);
+x1test = x1all(N_train+1:50, :);
+x2test = x2all(N_train+1:50, :);
+x3test = x3all(N_train+1:50, :);
 
 x_all_train = [x1train; x2train; x3train]';
 t_all_train = [repmat([1 0 0],N_train,1); repmat([0 1 0],N_train,1); repmat([0 0 1],N_train,1)]';
@@ -99,7 +104,7 @@ fprintf('After the classifier training, %i of the %i flowers in the test set are
 
 
 fprintf('\nConfusion matrix for the training set (Actual class vertically, chosen class horisontally):\n');
-fprintf('\t\t\t&Setosa\t&Versicolor\t&Virginica\\\\ \\hline\n');
+fprintf('\t\t\t&Setosa\t&Versicolor\t&Virginica\\\\  \\hline\n');
 
 x_vec = [x1train, ones(N_train,1)]';
 z = W * x_vec; g = 1./(1+exp(-z)); % Squashing function
