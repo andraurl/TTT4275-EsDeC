@@ -1,13 +1,13 @@
-% load('trained_classifier')
-load('alt_trained_classifier')
+load('trained_classifier')
+% load('alt_trained_classifier')
 
 x1all = load('class_1','-ascii'); % setosa
 x2all = load('class_2','-ascii'); % versicolor
 x3all = load('class_3','-ascii'); % virginica
 
-x1all = flipud(x1all);
-x2all = flipud(x2all);
-x3all = flipud(x3all);
+% x1all = flipud(x1all);
+% x2all = flipud(x2all);
+% x3all = flipud(x3all);
 
 %% Classification of training set
 

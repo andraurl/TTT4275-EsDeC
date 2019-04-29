@@ -4,10 +4,10 @@ N = 3; % number of classes
 
 % innput
 % 
-% solution = testset_class;
-% estimated = testset_class_estimated;
-solution = trainset_class;
-estimated = trainset_class_estimated;
+solution = testset_class;
+estimated = testset_class_estimated;
+% solution = trainset_class;
+% estimated = trainset_class_estimated;
 
 confution_matrix_count = zeros(N,N);
 
