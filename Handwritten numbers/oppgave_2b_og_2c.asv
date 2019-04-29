@@ -13,7 +13,8 @@ testset_num_estimated = zeros(size(testset_num));
 correctly_guessed = 0;
 confution_matrix_count = zeros(10,10);
 
-for t = 1:10000
+%for t = 1:10000
+for t = 9
     nearest_num = 0;
     
     distances = (testset(t,:) - references).^2;
@@ -26,20 +27,22 @@ for t = 1:10000
     [~,~,most_frequent] = mode(nearest_nums);
     most_frequent = most_frequent{1}';
     
-    if length(most_frequent) == 1 % Hvis en klasse dominerer i de K referansene
+    if length(most_frequent) == 1
         guessed_num = most_frequent;
     else % Hvis flere klasser har likt antall referanser:
         % Fjern alle de andre klassene fra referansesettet:
         for i = k:-1:1
-            if ~ismember(nearest_nums(i), most_frequent)
+            if sum(nearest_nums(i)==most_frequent) == 0
                 nearest_nums(i) = [];
                 template_distances(i) = [];
             end
         end
-        % Og velg deretter den nærmeste referansen:
-        [~, I] = min(template_distances);
-        guessed_num = nearest_nums(I);
+        
+        
+        guessed_num
     end
+    %correct = testset_num(t)
+    
     
     testset_num_estimated(t) = guessed_num;
  
@@ -51,5 +54,3 @@ for t = 1:10000
 end
 
 % 71,23% riktig
-
-
