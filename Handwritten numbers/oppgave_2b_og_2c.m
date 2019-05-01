@@ -2,11 +2,21 @@ load('data_all.mat');
 load('clusters.mat');
 
 M = 64;
+delete = [3 16 17 22 31 34 46 51 57 60];
+delete = [20];
+delete = [];
+M = M - length(delete);
 
 references = Ci;
-for i = 1:M
+%% remove unwanted references
+references(delete, : ) = [];
+ 
+for i = 1:M + length(delete)
     references_num(i) = mode(trainlab(idxi==i));
 end 
+
+references_num(delete) = [];
+references_num(M+1+1:end) = [];
 
 testset = testv;
 testset_num = uint8(testlab);
@@ -21,8 +31,8 @@ for t = 1:10000
     distances = (testset(t,:) - references).^2;
     distances = sum(distances')';
 
-    % k = 1;
-    k = 7;
+    k = 1;
+    % k = 7;
     [template_distances, template_index] = mink(distances,k);
     nearest_nums = references_num(template_index);
     [~,~,most_frequent] = mode(nearest_nums);
@@ -38,20 +48,11 @@ for t = 1:10000
                 template_distances(i) = [];
             end
         end
-        % Og velg deretter den nærmeste referansen:
+        % Og velg deretter den nÃ¦rmeste referansen:
         [~, I] = min(template_distances);
         guessed_num = nearest_nums(I);
     end
     
     testset_num_estimated(t) = guessed_num;
- 
-    % updating precition REMOVE IN HANDIN
-    if testset_num(t) == guessed_num
-        correctly_guessed = correctly_guessed + 1;
-    end
-    fprintf('Prosent riktig: %f\n', correctly_guessed / t * 100)
 end
-
-% 71,23% riktig
-
 

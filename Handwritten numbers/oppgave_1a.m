@@ -21,6 +21,4 @@ for t = 1:10000
             nearest_distance = min_distance_in_chunk;
         end
     end
-    % remove following line in handin
-    fprintf('Fasit: %i, Gjettet: %i. Indeksen var %i. Riktig: %i\n', testset_num(t), nearest_num, t,testset_num(t) == nearest_num);
 end
