@@ -53,7 +53,7 @@ t = t_all_train;
 
 % Training:
 alpha = 0.005;
-NumIterations = 10000;
+NumIterations = 100000;
 for iteration = 1:NumIterations    
     z = W * x_vec;
     g = 1./(1+exp(-z)); % Squashing function

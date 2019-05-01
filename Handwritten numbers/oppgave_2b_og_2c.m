@@ -1,12 +1,7 @@
 load('data_all.mat');
-load('clusters.mat');
-
+load('640_clusters.mat');
 M = 64;
 
-references = Ci;
-for i = 1:M
-    references_num(i) = mode(trainlab(idxi==i));
-end 
 
 testset = testv;
 testset_num = uint8(testlab);
@@ -15,14 +10,14 @@ testset_num_estimated = zeros(size(testset_num));
 correctly_guessed = 0;
 confution_matrix_count = zeros(10,10);
 
+k = 1;
+
 for t = 1:10000
     nearest_num = 0;
     
     distances = (testset(t,:) - references).^2;
     distances = sum(distances')';
 
-    % k = 1;
-    k = 7;
     [template_distances, template_index] = mink(distances,k);
     nearest_nums = references_num(template_index);
     [~,~,most_frequent] = mode(nearest_nums);
@@ -49,9 +44,19 @@ for t = 1:10000
     if testset_num(t) == guessed_num
         correctly_guessed = correctly_guessed + 1;
     end
-    fprintf('Prosent riktig: %f\n', correctly_guessed / t * 100)
 end
-
+avviksrate = 100-100 * correctly_guessed / 10000;
+fprintf('\n\nAvviksrate med K=%i: %.2f %%\n', k, avviksrate);
 % 71,23% riktig
 
 
+fprintf('  '); for i = 0:9; fprintf('& %4i', i); end;
+for rett_tall = 0:9
+    testset_num_estimated;
+    testset_num;
+    fprintf(' \\\\\n%i ', rett_tall)
+    for klassifisert_tall = 0:9
+        fprintf('& %4i', sum(testset_num_estimated(testset_num'==rett_tall) == klassifisert_tall)); % /sum(testset_num==klassifisert_tall))
+    end
+end
+fprintf('\n\n');

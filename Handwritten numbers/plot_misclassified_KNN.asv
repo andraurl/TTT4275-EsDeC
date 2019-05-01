@@ -1,0 +1,37 @@
+load('classified_with_knn');
+load('640_clusters');
+load('data_all', 'testv', 'testlab')
+
+testset = testv; clear testv;
+testset_num = testlab; clear testlab;
+
+wrong_with_k_1 = testset_num_estimated_k_1 - testset_num ~=0;
+wrong_with_k_7 = testset_num_estimated_k_7 - testset_num ~=0;
+
+wrong_only_with_k_7 = 1==(wrong_with_k_7 .* (1-wrong_with_k_1));
+wrong_only_with_k_7_idx = 1:10000;
+wrong_only_with_k_7_idx = wrong_only_with_k_7_idx(wrong_only_with_k_7);
+t = wrong_only_with_k_7_idx(1);
+
+
+distances = (testset(t,:) - references).^2;
+distances = sum(distances')';
+
+[template_distances, template_index] = mink(distances,7);
+nearest_nums = references_num(template_index);
+
+close(1); figure(1);
+subplot(2, 4, 1);
+title('Number to be classified');
+x = zeros(28,28);
+x(:) = testset(t,:);
+image(x');
+
+for plotId = 2:8
+   subplot(2, 4, plotId);
+   title(sprintf('Reference of %i', ));
+   x = zeros(28,28);
+   x(:) = references(  template_index(plotId-1)  ,:);
+   image(x');
+end
+
